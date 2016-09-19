@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Hexo를 이용해 GitHub에 블로깅하기 - 1 · SPHERE</title><meta name="description" content="Hexo를 이용해 GitHub에 블로깅하기 - 1 - SeungHyun Lee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://zero2hex.github.io/atom.xml" title="SPHERE"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/zero2hex" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Hexo를 이용해 GitHub에 블로깅하기 - 1</h1><div class="post-info">2016년 7월 20일</div><div class="post-content"><h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>며칠 전 GitHub로 블로그를 옮겼다.</p>
+<p>블로그를 옮기게 된 이유는 Markdown을 이용한 글 작성 때문이었다. 평소 개발을 하면서 에버노트에 스크랩을 해 두거나 Markdown을 이용해 간단하게 메모를 해 두곤 했었다. 언젠간 메모들을 정리해서 블로깅을 해야지..하곤 했는데, 뭔가 글로 정리하려니 귀찮아서 차일피일 미루다 보니 스크랩만 잔뜩 쌓여갔다. 그러던 중에 최근 우연히 GitHub의 Pages를 이용해 꽤나 괜찮게 꾸민 블로그를 접했다. 그래서! 이 기회에 나도 한번 옮겨보자 싶어 이것저것 알아봤고, 그 내용들을 정리해 본다.</p>
+<h2 id="GitHub-Pages"><a href="#GitHub-Pages" class="headerlink" title="GitHub Pages"></a>GitHub Pages</h2><p>GitHub의 <a href="https://pages.github.com/" target="_blank" rel="external">Pages</a>란 GitHub 저장소(Repository)를 기반으로 한 정적 웹페이지 호스팅 서비스이다. 딱히 서버 구축에 신경 쓸 필요 없이 GitHub에 특정 명칭의 저장소 혹은 브랜치(Branch)를 만들고, 그곳에 웹 페이지를 저장하면 간단히 호스팅을 받을 수 있다. 이 웹페이지들은 GitHub가 제공하는 도구로 쉽게 만들 수도 있고, 로컬에서 제작 후 git으로 저장소에 올릴 수도 있다.</p>
+<p>Pages의 가장 큰 장점은 무료라는 점일 것이다. 아무리 싼 가격이라고 해도 호스팅 비용이 들면 부담되기도하고, 결재에도 신경써야하기에 귀찮은 부분이 많다. 하지만 Pages의 경우 GitHub라는 무료 공개 저장소를 기반으로 제공되는 것이기에 부담이 전혀 없다.</p>
+<p>그리고 기본적으로 <a href="https://jekyllrb.com/" target="_blank" rel="external">Jekyll(지킬)</a>이라는 정적 사이트 생성기(Static Site Generator)를 지원하기에 상당히 쉽게 웹사이트를 만들 수 있는 점도 하나의 장점이라 할 수 있겠다. 본 글에서는 Jekyll이 아닌 Hexo라는 프레임워크를 쓸 것이기에, Jekyll을 이용한 웹사이트 구축은 <a href="http://blog.saltfactory.net/jekyll/upgrade-github-pages-dependency-versions.html" target="_blank" rel="external">여기</a>를 참고하기 바란다.<br>(참고로, <a href="http://www.jekyllnow.com/" target="_blank" rel="external">Jekyll Now</a>라는 것도 있는데, 서로 다른 것이 아닌 fork만 하면 바로 웹사이트를 만들 수 있도록 GitHub 저장소를 만들어두고 서비스하는 것이다.)</p>
+<p>물론 Pages에 <a href="https://help.github.com/articles/what-is-github-pages/#recommended-limits" target="_blank" rel="external">제약사항</a>이 없는 것은 아니다. 1GB 미만의 소스 코드 및 웹페이지 저장소가 제공되며, 100GB 혹은 100,000번의 요청을 수용할 수 있는 대역폭이 제공된다. 보다 자세한 사항은 <a href="https://help.github.com/articles/what-is-github-pages/" target="_blank" rel="external">GitHub Help</a> 페이지를 참고하자.</p>
+<h2 id="Blog-framework"><a href="#Blog-framework" class="headerlink" title="Blog framework"></a>Blog framework</h2><p>자, 그럼 GitHub에서 호스팅을 받을 수 있는 것은 알았고, 그 다음으로 필요한 것이 블로깅을 할 블로그 프레임워크 및 정적 사이트 생성기이다. 정적 사이트 생성기를 통해 Markdown 등을 통해 작성된 문서를 웹페이지로 변환할 수 있게 된다. 여기서 정적 사이트라는 것은 해당 문서가 사용자의 요청에 따라 변하지 않는 사이트를 말한다. 그렇기 때문에 댓글같은 DB 기반 기능을 자체적으로 제공 할 수 없고, <a href="https://disqus.com/" target="_blank" rel="external">DISQUS</a>와 같은 서비스를 이용해야 한다.</p>
+<p>블로그 프레임워크에는 종류가 정말 많아서 선정하는데 꽤나 애를 먹었다. 나에게 필요한 요소는 다음과 같았다.</p>
+<ul>
+<li>Markdown을 이용한 글쓰기를 지원할 것</li>
+<li>정적 사이트 생성을 자체적으로 지원할 것</li>
+<li>사용자 수가 많을 것</li>
+<li>JavaScript(Node.js) 기반일 것</li>
+</ul>
+<p>Markdown이야 두말할 필요도 없는 가장 큰 이유였고, 보다 편리한 블로깅을 위해 자체적인 정적 사이트 생성을 지원하는 프레임워크를 이용하고자 했다. 또한 관련 정보 및 버그 수정 등의 용이함을 위해 사용자 수가 많아야 했고, 마지막으로 공부를 위해 소스를 분석해 보고, 추가적인 플러그인 제작을 위해 Node.js 기반일 필요가 있었다. 이 요소를 기반으로 정적 사이트 생성기 비교 사이트인 <a href="https://www.staticgen.com/" target="_blank" rel="external">StaticGen</a>와 <a href="https://staticsitegenerators.net/" target="_blank" rel="external">Static Site Generators</a>에서 나에게 맞는 프레임워크를 찾아봤다.</p>
+<h2 id="Jekyll-vs-Ghost-vs-Hexo"><a href="#Jekyll-vs-Ghost-vs-Hexo" class="headerlink" title="Jekyll vs Ghost vs Hexo"></a>Jekyll vs Ghost vs Hexo</h2><p>일단 Markdown을 지원하는 프레임워크는 상당히 많았다.</p>
+<p>대표적인게 GitHub에서 기본적으로 지원하는 <a href="https://jekyllrb.com/" target="_blank" rel="external">Jekyll</a>이었다. 이 프레임워크는 사용자도 압도적으로 많고, 그에 따라 관련 자료와 지원이 많았다. 또한 자제적으로 정적 사이트 생성이 지원됐다. 하지만 Ruby 기반으로 만들어져서 추후에 소스를 분석해 보기 난해할 것이라 생각돼 제외했다.</p>
+<p>다음으로는 <a href="https://github.com/TryGhost/Ghost" target="_blank" rel="external">Ghost</a>가 눈에 띄었다. Ghost의 경우 Markdown을 지원할 뿐 아니라 자체적인 에디터 지원, Node.js 기반으로 만들어져서 소스 분석 용이 등 여러 장점이 있었다. 하지만 최신버전의 Node.js 미지원, 추가적인 정적 사이트 생성기 필요 등으로 인해 후보에서 제외됐다.</p>
+<p>그리고 마지막으로 고려한 것이 <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>이다. Hexo는 Node.js 기반의 프레임워크로, 정적 사이트 생성기가 지원되는 프레임워크 중에는 Jekyll 다음으로 많은 Star를 보유하고 있었다. 게다가 <a href="https://hexo.io/docs/" target="_blank" rel="external">문서화</a>도 잘 돼 있는 편이라 상당히 만족스러웠다. 무엇보다도 자체적인 배포 기능을 제공하고 있는 점이 가장 마음에 들었다. 문제가 하나 있다면 중국 쪽에서 개발돼서인지 관련 검색 결과나 GitHub에 등록된 이슈들이 중국어가 많다는 점이다. <del>번역기의 필요성…!</del> </p>
+<p>그래서.. 결과적으로 Hexo 낙찰!</p>
+<h2 id="Hexo-설치"><a href="#Hexo-설치" class="headerlink" title="Hexo 설치"></a>Hexo 설치</h2><p>그럼 이제 본격적으로 개발 환경을 구축할 차례이다. Hexo 구축을 위해서는 기본적으로 아래와 같은 환경이 갖춰져야 한다.</p>
+<ul>
+<li><a href="https://nodejs.org/en/download/" target="_blank" rel="external">Node.js</a></li>
+<li><a href="https://git-scm.com/downloads" target="_blank" rel="external">Git</a></li>
+</ul>
+<p>위 환경만 갖춰지면 Windows, Mac, Linux 어디에서든 가능하지만, 개인적으로는 Linux 환경을 추천한다. 초반에는 Windows 환경에서 개발에 도전했지만, <code>npm install</code> 도중 경로가 너무 길다는 오류가 발생해 곤란한 경우가 있었다. 또한 Mac의 경우 <a href="https://hexo.io/docs/index.html#Requirements" target="_blank" rel="external">컴파일링에 문제가 있을 수 있다는 경고문</a>이 있어서, Linux가 가장 적합하다고 생각된다.</p>
+<blockquote>
+<p><strong>2016.09.19 덧붙임</strong></p>
+<p>최근 <em>Git for Windows</em>와 함께 깔린 <em>mingw-w64</em>를 <em>ConEmu</em>와 함께 사용하며 Windows에 쉘 환경을 구축해 개발을 하고 있다. 이런 환경에서는 위와 같은 오류가 발생하지 않고 있으니 참고 바란다.</p>
+</blockquote>
+<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><p>자, 운영체제와 개발 환경이 구축됐다면 Hexo를 설치하자.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g hexo-cli</div></pre></td></tr></table></figure>
+<p>설치가 완료되면, 다음 명령어를 통해 잘 설치가 됐는지 확인해 보자. 성공적으로 설치됐다면 아래와 같은 메세지가 뜰 것이다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ hexo -v</div><div class="line">hexo-cli: 1.0.2</div><div class="line">os: Linux 4.4.0-28-generic linux x64</div><div class="line">http_parser: 2.5.2</div><div class="line">node: 4.4.7</div><div class="line">v8: 4.5.103.36</div><div class="line">uv: 1.8.0</div><div class="line">zlib: 1.2.8</div><div class="line">ares: 1.10.1-DEV</div><div class="line">modules: 46</div><div class="line">openssl: 1.0.2h</div></pre></td></tr></table></figure>
+<h3 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h3><p>메세지까지 확인했다면 이제 Hexo 블로깅을 위한 디렉토리 초기화를 진행한다. 디렉토리 초기화 명령어는 다음과 같다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo init &lt;folder&gt;</div></pre></td></tr></table></figure>
+<p>여기서는 ‘hello-hexo’라는 명칭의 디렉토리를 생성하고, 프로젝트를 진행해 보도록 하겠다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo init hello-hexo</div><div class="line">...</div><div class="line">INFO  Start blogging with Hexo!</div></pre></td></tr></table></figure>
+<p>이런식의 메세지가 지나고 나면 아래와 같이 디렉토리 구조가 초기화된다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">hello-hexo</div><div class="line">├── _config.yml</div><div class="line">├── package.json</div><div class="line">├── scaffolds</div><div class="line">├── source</div><div class="line">|   ├── _drafts</div><div class="line">|   └── _posts</div><div class="line">└── themes</div></pre></td></tr></table></figure>
+<p>초기화를 통해 여러 파일들이 생성되는데, 각각의 역할은 다음과 같다.</p>
+<ul>
+<li><a href="https://hexo.io/docs/configuration.html" target="_blank" rel="external">_config.yml</a> : 사이트의 제목을 비롯해 블로그 주인의 정보, 설명, 디렉토리 커스텀, 태그 정보 설정 등 Hexo 사이트에 대한 설정을 할 수 있다.</li>
+<li><a href="https://hexo.io/docs/setup.html#package-json" target="_blank" rel="external">package.json</a> : NPM 패키지 정보를 설정한다. Hexo 관련 패키지에 대해 의존성이 걸려있는 것을 확인할 수 있다.</li>
+<li><a href="https://hexo.io/docs/writing.html#Scaffolds" target="_blank" rel="external">scaffolds</a> : 글 작성 시 기반이 될 템플릿이 저장되는 곳이다. draft.md, post.md 등이 있는데, 각각이 draft(초안) 혹은 post(발행 글) 작성 시 기본 템플릿으로 사용된다.</li>
+<li><a href="https://hexo.io/docs/setup.html#source" target="_blank" rel="external">source</a> : 글감들의 정보가 저장되는 곳으로, <code>_drafts</code>는 외부에 공개되지 않는 초안이, _posts는 공개적으로 발행되는 글이 저장된다.</li>
+<li><a href="https://hexo.io/docs/themes.html" target="_blank" rel="external">themes</a> : 블로그의 테마에 필요한 파일들이 저장되는 곳으로, 이 디렉토리 하부에 테마 명칭으로 디렉토리를 만들어 관련 파일을 생성하면 된다.</li>
+</ul>
+<p>초기화를 했다면 <code>_config.yml</code>에 블로그 정보를 입력 할 차례다. <code>config.yml</code>을 열어보면 <code># Site</code>, <code># URL</code>, <code># Directory</code>, <code># Writing</code> 같은 분류를 가진 설정값들이 보인다. 여기서 먼저 수정 할 것들은 <code># Site</code>와 <code># URL</code>이다.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Site</span></div><div class="line"><span class="attr">title:</span> Hexo</div><div class="line"><span class="attr">subtitle:</span></div><div class="line"><span class="attr">description:</span></div><div class="line"><span class="attr">author:</span> John Doe</div><div class="line"><span class="attr">language:</span></div><div class="line"><span class="attr">timezone:</span></div><div class="line"></div><div class="line"><span class="comment"># URL</span></div><div class="line"><span class="comment">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span></div><div class="line"><span class="attr">url:</span> http://yoursite.com</div><div class="line"><span class="attr">root:</span> /</div><div class="line"><span class="attr">permalink:</span> :year/:month/:day/:title/</div><div class="line"><span class="attr">permalink_defaults:</span></div></pre></td></tr></table></figure>
+<p><code>Site</code>에는 블로그의 기본적인 정보를 기입하면 된다.</p>
+<ul>
+<li><code>title</code>: 브라우저에 표시될 블로그의 제목을 입력한다.</li>
+<li><code>subtitle</code>: 부제목이 있다면 입력해 준다.</li>
+<li><code>author</code>: 블로그에 표시될 이름 혹은 별명을 적어준다.</li>
+<li><code>language</code>: 블로그 기본 언어를 <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank" rel="external">ISO-639-1</a>의 2글자 코드로 적어주면 된다. 한국어로 설정할 것이라면 <code>ko</code>를, 영어라면 <code>en</code>을 적어주면 된다.</li>
+<li><code>timezone</code>: <a href="https://en.wikipedia.org/wiki/Tz_database" target="_blank" rel="external">tz database</a> 기반의 <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank" rel="external">타임존 코드</a>를 적어주면 된다. 국내 시간을 기준으로 할 것이라면 <code>Asia/Seoul</code>을 적어주자.</li>
+</ul>
+<p><code>URL</code>에는 블로그 도메인 정보를 기입한다.</p>
+<ul>
+<li><code>url</code>: 웹사이트 주소를 적어준다.</li>
+<li><code>root</code>: 웹사이트의 루트 주소를 적어준다.</li>
+<li><code>permalink</code>: 블로그 포스트의 주소 형식을 적어준다. 특별한 이유가 없다면 굳이 변경하지 않는 편이 낫다.</li>
+</ul>
+<p>위의 설정을 변경해 줬다면 기본적인 설정은 완료된 것이다. 그 외에 필요한 부분이 있다면 각자 수정해 보자. 설정에 대한 보다 자세한 정보는 <a href="https://hexo.io/docs/configuration.html" target="_blank" rel="external">여기</a>를 참고하면 된다.</p>
+<p>자 그럼 기본 세팅이 완료됐으니 실제로 글을 쓰고 꾸며 볼 차례다. 하지만 그 전에 잠깐, 코드를 Git으로 관리할 수 있도록 초기화를 진행하자.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git init</div></pre></td></tr></table></figure>
+</div></article></div></section><footer><div class="paginator"><a href="/2016/07/22/github-blogging-on-hexo-02/" class="prev">PREV</a><a href="/2016/07/17/hello-world/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'spherez';
+var disqus_identifier = '2016/07/19/github-blogging-on-hexo-01/';
+var disqus_title = 'Hexo를 이용해 GitHub에 블로깅하기 - 1';
+var disqus_url = 'http://zero2hex.github.io/2016/07/19/github-blogging-on-hexo-01/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//spherez.disqus.com/count.js" async></script><div class="copyright"><p>© 2016 <a href="http://zero2hex.github.io">SeungHyun Lee</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-84373425-1",'auto');ga('send','pageview');</script></body></html>
